@@ -86,32 +86,45 @@ public class AuthInitializer implements ApplicationRunner {
 	}
 
 	private void initClients() {
-		if (this.registeredClientRepository.findByClientId("app") == null) {
-			RegisteredClient app = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("app")
-				.clientName("App Público (PKCE)")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://localhost:4202/callback")
-				.redirectUri("http://127.0.0.1:4202/callback")
-				.postLogoutRedirectUri("http://127.0.0.1:8080/")
-				.scope(OidcScopes.OPENID)
-				.scope(OidcScopes.PROFILE)
-				.scope("read")
-				.clientSettings(ClientSettings.builder()
-					.requireProofKey(true)
-					.requireAuthorizationConsent(false)
-					.build())
-				.tokenSettings(TokenSettings.builder()
-					.accessTokenTimeToLive(Duration.ofMinutes(30))
-					.refreshTokenTimeToLive(Duration.ofDays(1))
-					.reuseRefreshTokens(false)
-					.build())
-				.build();
-			this.registeredClientRepository.save(app);
-			log.info("Client público 'app' criado (PKCE obrigatório)");
+		RegisteredClient existingApp = this.registeredClientRepository.findByClientId("app");
+		String appId = (existingApp != null) ? existingApp.getId() : UUID.randomUUID().toString();
+
+		RegisteredClient.Builder appBuilder = RegisteredClient.withId(appId)
+			.clientId("app")
+			.clientName("App Público (PKCE)")
+			.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+			.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+			.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+			.scope(OidcScopes.OPENID)
+			.scope(OidcScopes.PROFILE)
+			.scope("read")
+			.clientSettings(ClientSettings.builder()
+				.requireProofKey(true)
+				.requireAuthorizationConsent(false)
+				.build())
+			.tokenSettings(TokenSettings.builder()
+				.accessTokenTimeToLive(Duration.ofMinutes(30))
+				.refreshTokenTimeToLive(Duration.ofDays(1))
+				.reuseRefreshTokens(false)
+				.build());
+
+		for (int port = 4200; port <= 4210; port++) {
+			appBuilder.redirectUri("http://localhost:" + port + "/callback")
+				.redirectUri("http://127.0.0.1:" + port + "/callback")
+				.postLogoutRedirectUri("http://localhost:" + port)
+				.postLogoutRedirectUri("http://localhost:" + port + "/")
+				.postLogoutRedirectUri("http://localhost:" + port + "/logout")
+				.postLogoutRedirectUri("http://127.0.0.1:" + port)
+				.postLogoutRedirectUri("http://127.0.0.1:" + port + "/")
+				.postLogoutRedirectUri("http://127.0.0.1:" + port + "/logout");
 		}
+		appBuilder.postLogoutRedirectUri("http://127.0.0.1:8080/")
+			.postLogoutRedirectUri("http://localhost:8080/")
+			.postLogoutRedirectUri("http://localhost:8080/login")
+			.postLogoutRedirectUri("http://127.0.0.1:8080/login");
+
+		this.registeredClientRepository.save(appBuilder.build());
+		log.info("Client público 'app' registrado/atualizado (PKCE obrigatório)");
 
 		if (this.registeredClientRepository.findByClientId("service") == null) {
 			RegisteredClient service = RegisteredClient.withId(UUID.randomUUID().toString())
