@@ -11,4 +11,9 @@ public class LoginController {
 		return "custom-login";
 	}
 
+	@GetMapping("/")
+	public String root() {
+		return "redirect:http://localhost:4202";
+	}
+
 }

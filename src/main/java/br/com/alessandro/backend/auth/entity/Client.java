@@ -30,19 +30,19 @@ public class Client {
 	@Column(length = 1000)
 	private String authorizationGrantTypes;
 
-	@Column(length = 1000)
+	@Column(length = 4000)
 	private String redirectUris;
 
-	@Column(length = 1000)
+	@Column(length = 4000)
 	private String postLogoutRedirectUris;
 
-	@Column(length = 1000)
+	@Column(length = 2000)
 	private String scopes;
 
-	@Column(length = 2000)
+	@Column(length = 4000)
 	private String clientSettings;
 
-	@Column(length = 2000)
+	@Column(length = 4000)
 	private String tokenSettings;
 
 	public String getId() {

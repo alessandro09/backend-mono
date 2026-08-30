@@ -14,6 +14,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -47,13 +49,36 @@ public class SecurityConfig {
 	@Order(2)
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, DisabledUserFilter disabledUserFilter,
 			JwtAuthenticationConverter jwtAuthenticationConverter) {
+		// Ignore browser/devtools probes and static assets from request cache
+		HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+		requestCache.setRequestMatcher((request) -> {
+			String uri = request.getRequestURI();
+			return !uri.contains("/.well-known") && !uri.endsWith(".ico") && !uri.endsWith(".json")
+					&& !uri.endsWith(".css") && !uri.endsWith(".js") && !uri.endsWith(".png") && !uri.endsWith(".svg");
+		});
+
 		http.cors(withDefaults());
 		http.csrf((csrf) -> csrf.ignoringRequestMatchers("/api/**"));
-		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/admin/**")
+		http.requestCache((cache) -> cache.requestCache(requestCache));
+		http.authorizeHttpRequests((authorize) -> authorize
+			.requestMatchers("/.well-known/**", "/favicon.ico", "/error")
+			.permitAll()
+			.requestMatchers("/api/admin/**")
 			.hasRole("ADMIN")
 			.anyRequest()
 			.authenticated())
 			.formLogin((formLogin) -> formLogin.loginPage("/login").permitAll())
+			.logout((logout) -> logout
+				.logoutRequestMatcher(PathPatternRequestMatcher.pathPattern("/logout"))
+				.logoutSuccessHandler((request, response, authentication) -> {
+					String redirectUri = request.getParameter("post_logout_redirect_uri");
+					if (redirectUri != null && !redirectUri.isBlank()) {
+						response.sendRedirect(redirectUri);
+					} else {
+						response.sendRedirect("/login?logout");
+					}
+				})
+				.permitAll())
 			.oauth2ResourceServer((resourceServer) -> resourceServer
 				.jwt((jwt) -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
 		http.addFilterAfter(disabledUserFilter, BearerTokenAuthenticationFilter.class);
@@ -81,4 +106,3 @@ public class SecurityConfig {
 	}
 
 }
-

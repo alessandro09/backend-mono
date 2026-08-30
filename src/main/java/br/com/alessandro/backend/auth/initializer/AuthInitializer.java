@@ -121,7 +121,9 @@ public class AuthInitializer implements ApplicationRunner {
 		appBuilder.postLogoutRedirectUri("http://127.0.0.1:8080/")
 			.postLogoutRedirectUri("http://localhost:8080/")
 			.postLogoutRedirectUri("http://localhost:8080/login")
-			.postLogoutRedirectUri("http://127.0.0.1:8080/login");
+			.postLogoutRedirectUri("http://localhost:8080/login?logout")
+			.postLogoutRedirectUri("http://127.0.0.1:8080/login")
+			.postLogoutRedirectUri("http://127.0.0.1:8080/login?logout");
 
 		this.registeredClientRepository.save(appBuilder.build());
 		log.info("Client público 'app' registrado/atualizado (PKCE obrigatório)");
