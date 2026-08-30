@@ -26,6 +26,9 @@ public class Group {
 			inverseJoinColumns = @JoinColumn(name = "role_name"))
 	private Set<Role> roles = new HashSet<>();
 
+	protected Group() {
+	}
+
 	public Group(String name) {
 		this.name = name;
 	}

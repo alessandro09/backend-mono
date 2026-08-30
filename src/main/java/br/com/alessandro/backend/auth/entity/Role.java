@@ -13,6 +13,9 @@ public class Role {
 	@Column(name = "name", length = 50)
 	private String name;
 
+	protected Role() {
+	}
+
 	public Role(String name) {
 		this.name = name;
 	}
