@@ -1,5 +1,6 @@
 package br.com.alessandro.backend.auth.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,6 +26,10 @@ public interface AuthorizationRepository extends JpaRepository<Authorization, St
 	Optional<Authorization> findByUserCodeValue(String token);
 
 	Optional<Authorization> findByDeviceCodeValue(String token);
+
+	List<Authorization> findAllByPrincipalName(String principalName);
+
+	void deleteByPrincipalName(String principalName);
 
 	@Query("select a from Authorization a where a.state = :token"
 			+ " or a.authorizationCodeValue = :token"
