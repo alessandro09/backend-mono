@@ -1,0 +1,24 @@
+package br.com.alessandro.backend.registry.entrypoint.http.customer.dtos;
+
+import br.com.alessandro.backend.registry.entities.enums.ClientStatusType;
+import br.com.alessandro.backend.registry.entities.enums.PersonType;
+import java.util.List;
+import java.util.Map;
+
+public record CustomerRequestDTO(
+    PersonType personType,
+    String legalName,
+    String tradeName,
+    String taxId,
+    String stateTaxId,
+    String municipalTaxId,
+    String suframaCode,
+    ClientStatusType status,
+    List<AddressDTO> addresses,
+    List<ContactDTO> contacts,
+    List<FinancialsDTO> financials,
+    Long salesOrganizationId,
+    Long distributionChannelId,
+    Long salesRepresentativeId,
+    Map<String, Object> metadata
+) {}
