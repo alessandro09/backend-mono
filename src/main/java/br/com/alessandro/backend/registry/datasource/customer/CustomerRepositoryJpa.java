@@ -35,7 +35,7 @@ public interface CustomerRepositoryJpa extends JpaRepository<CustomerMasterModel
     String SERCH_BY_NAME_QUERY = """
         SELECT c
           FROM CustomerMasterModel c
-         WHERE (LOWER(c.legalName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR LOWER(c.tradeName) LIKE LOWER(CONCAT('%', :searchTerm, '%')))
+         WHERE (CAST(:searchTerm AS string) is null OR LOWER(c.legalName) LIKE LOWER(CONCAT('%', CAST(:searchTerm AS string), '%')) OR LOWER(c.tradeName) LIKE LOWER(CONCAT('%', CAST(:searchTerm AS string), '%')))
            AND (:status is null OR c.status = :status)
     """;
 }
