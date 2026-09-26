@@ -3,7 +3,7 @@ package br.com.alessandro.backend.registry.entities;
 import br.com.alessandro.backend.registry.entities.enums.ContactChannel;
 import java.util.Objects;
 
-public class CustomerContact {
+public class CustomerContactEntity {
 
     private Long id;
 
@@ -17,9 +17,9 @@ public class CustomerContact {
     
     private boolean isPrimary = false;
 
-    private CustomerMaster customer;
+    private CustomerMasterEntity customer;
 
-    public CustomerContact() {}
+    public CustomerContactEntity() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -39,13 +39,13 @@ public class CustomerContact {
     public boolean isPrimary() { return isPrimary; }
     public void setPrimary(boolean primary) { isPrimary = primary; }
 
-    public CustomerMaster getCustomer() { return customer; }
-    public void setCustomer(CustomerMaster customer) { this.customer = customer; }
+    public CustomerMasterEntity getCustomer() { return customer; }
+    public void setCustomer(CustomerMasterEntity customer) { this.customer = customer; }
 
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomerContact that = (CustomerContact) o;
+        CustomerContactEntity that = (CustomerContactEntity) o;
         return Objects.equals(id, that.id);
     }
 

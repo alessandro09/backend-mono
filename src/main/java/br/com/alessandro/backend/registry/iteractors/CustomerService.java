@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.alessandro.backend.registry.entities.CustomerMaster;
+import br.com.alessandro.backend.registry.entities.CustomerMasterEntity;
 import br.com.alessandro.backend.registry.entities.enums.ClientStatusType;
 import br.com.alessandro.backend.registry.repository.CustomerRepository;
 
@@ -21,15 +21,15 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public CustomerMaster save(CustomerMaster request) {
+    public CustomerMasterEntity save(CustomerMasterEntity request) {
         return customerRepository.save(request);
     }
 
-    public Optional<CustomerMaster> findById(Long id) {
+    public Optional<CustomerMasterEntity> findById(Long id) {
         return customerRepository.findById(id);
     }
 
-    public Optional<CustomerMaster> findByTaxId(String taxId) {
+    public Optional<CustomerMasterEntity> findByTaxId(String taxId) {
         return customerRepository.findByTaxId(taxId);
     }
 
@@ -41,11 +41,11 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public @Nullable CustomerMaster update(Long id, CustomerMaster request) {
+    public @Nullable CustomerMasterEntity update(Long id, CustomerMasterEntity request) {
         return customerRepository.update(id, request);
     }
 
-    public Page<CustomerMaster> search(String searchTerm, ClientStatusType status, Pageable pageable) {
+    public Page<CustomerMasterEntity> search(String searchTerm, ClientStatusType status, Pageable pageable) {
         return customerRepository.search(searchTerm, status, pageable);
     }
     

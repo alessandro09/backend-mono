@@ -8,9 +8,17 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
+  sql:
+    init:
+      mode: always
+      data-locations:
+        - classpath:seed/countries.sql
+        - classpath:seed/states.sql
+        - classpath:seed/cities.sql
   jpa:
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
   data:
     redis:
       host: localhost

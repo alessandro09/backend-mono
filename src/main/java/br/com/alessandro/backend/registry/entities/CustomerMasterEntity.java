@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CustomerMaster {
+public class CustomerMasterEntity {
     private Long id;
 
     private PersonType personType;
@@ -27,11 +27,11 @@ public class CustomerMaster {
 
     private ClientStatusType status;
 
-    private List<CustomerAddress> addresses = new ArrayList<>();
+    private List<CustomerAddressEntity> addresses = new ArrayList<>();
 
-    private List<CustomerContact> contacts = new ArrayList<>();
+    private List<CustomerContactEntity> contacts = new ArrayList<>();
 
-    private List<CustomerFinancials> financials = new ArrayList<>();
+    private List<CustomerFinancialsEntity> financials = new ArrayList<>();
 
     private Long salesOrganizationId;
 
@@ -45,7 +45,7 @@ public class CustomerMaster {
 
     private Map<String, Object> metadata;
 
-    public CustomerMaster() {}
+    public CustomerMasterEntity() {}
 
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -56,32 +56,32 @@ public class CustomerMaster {
         updatedAt = LocalDateTime.now();
     }
 
-    public void addAddress(CustomerAddress address) {
+    public void addAddress(CustomerAddressEntity address) {
         addresses.add(address);
         address.setCustomer(this);
     }
 
-    public void removeAddress(CustomerAddress address) {
+    public void removeAddress(CustomerAddressEntity address) {
         addresses.remove(address);
         address.setCustomer(null);
     }
 
-    public void addContact(CustomerContact contact) {
+    public void addContact(CustomerContactEntity contact) {
         contacts.add(contact);
         contact.setCustomer(this);
     }
 
-    public void removeContact(CustomerContact contact) {
+    public void removeContact(CustomerContactEntity contact) {
         contacts.remove(contact);
         contact.setCustomer(null);
     }
 
-    public void addFinancials(CustomerFinancials financials) {
+    public void addFinancials(CustomerFinancialsEntity financials) {
         this.financials.add(financials);
         financials.setCustomer(this);
     }
 
-    public void removeFinancials(CustomerFinancials financials) {
+    public void removeFinancials(CustomerFinancialsEntity financials) {
         this.financials.remove(financials);
         financials.setCustomer(null);
     }
@@ -113,13 +113,13 @@ public class CustomerMaster {
     public ClientStatusType getStatus() { return status; }
     public void setStatus(ClientStatusType status) { this.status = status; }
 
-    public List<CustomerAddress> getAddresses() { return addresses; }
-    public void setAddresses(List<CustomerAddress> addresses) { this.addresses = addresses; }
+    public List<CustomerAddressEntity> getAddresses() { return addresses; }
+    public void setAddresses(List<CustomerAddressEntity> addresses) { this.addresses = addresses; }
 
-    public List<CustomerContact> getContacts() { return contacts; }
-    public void setContacts(List<CustomerContact> contacts) { this.contacts = contacts; }
+    public List<CustomerContactEntity> getContacts() { return contacts; }
+    public void setContacts(List<CustomerContactEntity> contacts) { this.contacts = contacts; }
 
-    public List<CustomerFinancials> getFinancials() { return financials; }
+    public List<CustomerFinancialsEntity> getFinancials() { return financials; }
 
     public Long getSalesOrganizationId() { return salesOrganizationId; }
     public void setSalesOrganizationId(Long salesOrganizationId) { this.salesOrganizationId = salesOrganizationId; }
@@ -139,7 +139,7 @@ public class CustomerMaster {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomerMaster that = (CustomerMaster) o;
+        CustomerMasterEntity that = (CustomerMasterEntity) o;
         return Objects.equals(id, that.id);
     }
 

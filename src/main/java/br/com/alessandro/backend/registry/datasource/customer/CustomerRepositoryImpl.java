@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import static br.com.alessandro.backend.registry.datasource.customer.mapper.CustomerMapper.*;
 
 import br.com.alessandro.backend.registry.datasource.customer.mapper.CustomerMapper;
-import br.com.alessandro.backend.registry.entities.CustomerMaster;
+import br.com.alessandro.backend.registry.entities.CustomerMasterEntity;
 import br.com.alessandro.backend.registry.entities.enums.ClientStatusType;
 import br.com.alessandro.backend.registry.repository.CustomerRepository;
 
@@ -26,12 +26,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public CustomerMaster save(CustomerMaster request) {
+    public CustomerMasterEntity save(CustomerMasterEntity request) {
         return toEntity(repository.save(toModel(request)));
     }
 
     @Override
-    public Optional<CustomerMaster> findById(Long id) {
+    public Optional<CustomerMasterEntity> findById(Long id) {
         return repository.findById(id).map(CustomerMapper::toEntity);
     }
 
@@ -41,7 +41,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public Optional<CustomerMaster> findByTaxId(String taxId) {
+    public Optional<CustomerMasterEntity> findByTaxId(String taxId) {
         return repository.findByTaxId(taxId).map(CustomerMapper::toEntity);
     }
 
@@ -51,16 +51,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public @Nullable CustomerMaster update(Long id, CustomerMaster request) {
+    public @Nullable CustomerMasterEntity update(Long id, CustomerMasterEntity request) {
         return repository.findById(id).map(existing -> {
-            CustomerMaster updated = toEntity(toModel(request));
+            CustomerMasterEntity updated = toEntity(toModel(request));
             updated.setId(existing.getId());
             return toEntity(repository.save(toModel(updated)));
         }).orElse(null);
     }
 
     @Override
-    public Page<CustomerMaster> search(String searchTerm, ClientStatusType status, Pageable pageable) {
+    public Page<CustomerMasterEntity> search(String searchTerm, ClientStatusType status, Pageable pageable) {
         return repository.search(searchTerm, status, pageable).map(CustomerMapper::toEntity);
     }
 

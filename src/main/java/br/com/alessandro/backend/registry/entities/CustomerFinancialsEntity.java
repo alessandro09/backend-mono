@@ -4,7 +4,7 @@ import br.com.alessandro.backend.registry.entities.enums.AccountType;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class CustomerFinancials {
+public class CustomerFinancialsEntity {
     private Long id;
 
     private BigDecimal creditLimit;
@@ -25,9 +25,9 @@ public class CustomerFinancials {
     
     private AccountType accountType;
 
-    private CustomerMaster customer;
+    private CustomerMasterEntity customer;
 
-    public CustomerFinancials() {}
+    public CustomerFinancialsEntity() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -59,13 +59,13 @@ public class CustomerFinancials {
     public AccountType getAccountType() { return accountType; }
     public void setAccountType(AccountType accountType) { this.accountType = accountType; }
 
-    public CustomerMaster getCustomer() { return customer; }
-    public void setCustomer(CustomerMaster customer) { this.customer = customer; }
+    public CustomerMasterEntity getCustomer() { return customer; }
+    public void setCustomer(CustomerMasterEntity customer) { this.customer = customer; }
 
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomerFinancials that = (CustomerFinancials) o;
+        CustomerFinancialsEntity that = (CustomerFinancialsEntity) o;
         return Objects.equals(id, that.id);
     }
 

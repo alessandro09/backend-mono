@@ -4,13 +4,13 @@ import br.com.alessandro.backend.registry.datasource.customer.model.CustomerAddr
 import br.com.alessandro.backend.registry.datasource.customer.model.CustomerContactModel;
 import br.com.alessandro.backend.registry.datasource.customer.model.CustomerFinancialsModel;
 import br.com.alessandro.backend.registry.datasource.customer.model.CustomerMasterModel;
-import br.com.alessandro.backend.registry.entities.CustomerAddress;
-import br.com.alessandro.backend.registry.entities.CustomerContact;
-import br.com.alessandro.backend.registry.entities.CustomerFinancials;
-import br.com.alessandro.backend.registry.entities.CustomerMaster;
+import br.com.alessandro.backend.registry.entities.CustomerAddressEntity;
+import br.com.alessandro.backend.registry.entities.CustomerContactEntity;
+import br.com.alessandro.backend.registry.entities.CustomerFinancialsEntity;
+import br.com.alessandro.backend.registry.entities.CustomerMasterEntity;
 
 public interface CustomerMapper {
-    public static CustomerMasterModel toModel(CustomerMaster entity) {
+    public static CustomerMasterModel toModel(CustomerMasterEntity entity) {
         if (entity == null) {
             return null;
         }
@@ -50,12 +50,12 @@ public interface CustomerMapper {
         return model;
     }
 
-    public static CustomerMaster toEntity(CustomerMasterModel model) {
+    public static CustomerMasterEntity toEntity(CustomerMasterModel model) {
         if (model == null) {
             return null;
         }
 
-        CustomerMaster entity = new CustomerMaster();
+        CustomerMasterEntity entity = new CustomerMasterEntity();
         entity.setId(model.getId());
         entity.setPersonType(model.getPersonType());
         entity.setLegalName(model.getLegalName());
@@ -90,7 +90,7 @@ public interface CustomerMapper {
         return entity;
     }
 
-    public static CustomerAddressModel toModel(CustomerAddress entity) {
+    public static CustomerAddressModel toModel(CustomerAddressEntity entity) {
         if (entity == null) {
             return null;
         }
@@ -109,12 +109,12 @@ public interface CustomerMapper {
         return model;
     }
 
-    public static CustomerAddress toEntity(CustomerAddressModel model) {
+    public static CustomerAddressEntity toEntity(CustomerAddressModel model) {
         if (model == null) {
             return null;
         }
 
-        CustomerAddress entity = new CustomerAddress();
+        CustomerAddressEntity entity = new CustomerAddressEntity();
         entity.setId(model.getId());
         entity.setAddressType(model.getAddressType());
         entity.setStreet(model.getStreet());
@@ -128,7 +128,7 @@ public interface CustomerMapper {
         return entity;
     }
 
-    public static CustomerContactModel toModel(CustomerContact entity) {
+    public static CustomerContactModel toModel(CustomerContactEntity entity) {
         if (entity == null) {
             return null;
         }
@@ -143,12 +143,12 @@ public interface CustomerMapper {
         return model;
     }
 
-    public static CustomerContact toEntity(CustomerContactModel model) {
+    public static CustomerContactEntity toEntity(CustomerContactModel model) {
         if (model == null) {
             return null;
         }
 
-        CustomerContact entity = new CustomerContact();
+        CustomerContactEntity entity = new CustomerContactEntity();
         entity.setId(model.getId());
         entity.setChannel(model.getChannel());
         entity.setContactValue(model.getContactValue());
@@ -158,7 +158,7 @@ public interface CustomerMapper {
         return entity;
     }
 
-    public static CustomerFinancialsModel toModel(CustomerFinancials entity) {
+    public static CustomerFinancialsModel toModel(CustomerFinancialsEntity entity) {
         if (entity == null) {
             return null;
         }
@@ -177,12 +177,12 @@ public interface CustomerMapper {
         return model;
     }
 
-    public static CustomerFinancials toEntity(CustomerFinancialsModel model) {
+    public static CustomerFinancialsEntity toEntity(CustomerFinancialsModel model) {
         if (model == null) {
             return null;
         }
 
-        CustomerFinancials entity = new CustomerFinancials();
+        CustomerFinancialsEntity entity = new CustomerFinancialsEntity();
         entity.setId(model.getId());
         entity.setCreditLimit(model.getCreditLimit());
         entity.setCurrency(model.getCurrency());

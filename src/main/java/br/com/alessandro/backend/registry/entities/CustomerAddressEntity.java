@@ -3,7 +3,7 @@ package br.com.alessandro.backend.registry.entities;
 import br.com.alessandro.backend.registry.entities.enums.AddressType;
 import java.util.Objects;
 
-public class CustomerAddress {
+public class CustomerAddressEntity {
     private Long id;
 
     private AddressType addressType;
@@ -24,9 +24,9 @@ public class CustomerAddress {
     
     private String countryCode;
 
-    private CustomerMaster customer;
+    private CustomerMasterEntity customer;
 
-    public CustomerAddress() {}
+    public CustomerAddressEntity() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -58,13 +58,13 @@ public class CustomerAddress {
     public String getCountryCode() { return countryCode; }
     public void setCountryCode(String countryCode) { this.countryCode = countryCode; }
 
-    public CustomerMaster getCustomer() { return customer; }
-    public void setCustomer(CustomerMaster customer) { this.customer = customer; }
+    public CustomerMasterEntity getCustomer() { return customer; }
+    public void setCustomer(CustomerMasterEntity customer) { this.customer = customer; }
 
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomerAddress that = (CustomerAddress) o;
+        CustomerAddressEntity that = (CustomerAddressEntity) o;
         return Objects.equals(id, that.id);
     }
 

@@ -1,9 +1,9 @@
 package br.com.alessandro.backend.registry.entrypoint.http.customer.mappers;
 
-import br.com.alessandro.backend.registry.entities.CustomerAddress;
-import br.com.alessandro.backend.registry.entities.CustomerContact;
-import br.com.alessandro.backend.registry.entities.CustomerFinancials;
-import br.com.alessandro.backend.registry.entities.CustomerMaster;
+import br.com.alessandro.backend.registry.entities.CustomerAddressEntity;
+import br.com.alessandro.backend.registry.entities.CustomerContactEntity;
+import br.com.alessandro.backend.registry.entities.CustomerFinancialsEntity;
+import br.com.alessandro.backend.registry.entities.CustomerMasterEntity;
 import br.com.alessandro.backend.registry.entrypoint.http.customer.dtos.AddressDTO;
 import br.com.alessandro.backend.registry.entrypoint.http.customer.dtos.ContactDTO;
 import br.com.alessandro.backend.registry.entrypoint.http.customer.dtos.CustomerRequestDTO;
@@ -12,7 +12,7 @@ import br.com.alessandro.backend.registry.entrypoint.http.customer.dtos.Financia
 
 public interface CustomerMapper {
 
-    public static CustomerResponseDTO toDTO(CustomerMaster customer) {
+    public static CustomerResponseDTO toDTO(CustomerMasterEntity customer) {
         if (customer == null) {
             return null;
         }
@@ -39,12 +39,12 @@ public interface CustomerMapper {
         );
     }
 
-    public static CustomerMaster toEntity(CustomerRequestDTO dto) {
+    public static CustomerMasterEntity toEntity(CustomerRequestDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        CustomerMaster customer = new CustomerMaster();
+        CustomerMasterEntity customer = new CustomerMasterEntity();
         customer.setPersonType(dto.personType());
         customer.setLegalName(dto.legalName());
         customer.setTradeName(dto.tradeName());
@@ -75,7 +75,7 @@ public interface CustomerMapper {
         return customer;
     }
 
-    private static AddressDTO toDTO(CustomerAddress address) {
+    private static AddressDTO toDTO(CustomerAddressEntity address) {
         if (address == null) {
             return null;
         }
@@ -94,12 +94,12 @@ public interface CustomerMapper {
         );
     }
 
-    private static CustomerAddress toEntity(AddressDTO dto) {
+    private static CustomerAddressEntity toEntity(AddressDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        CustomerAddress address = new CustomerAddress();
+        CustomerAddressEntity address = new CustomerAddressEntity();
         address.setId(dto.id());
         address.setAddressType(dto.addressType());
         address.setStreet(dto.street());
@@ -113,7 +113,7 @@ public interface CustomerMapper {
         return address;
     }
 
-    private static ContactDTO toDTO(CustomerContact contact) {
+    private static ContactDTO toDTO(CustomerContactEntity contact) {
         if (contact == null) {
             return null;
         }
@@ -128,12 +128,12 @@ public interface CustomerMapper {
         );
     }
 
-    private static CustomerContact toEntity(ContactDTO dto) {
+    private static CustomerContactEntity toEntity(ContactDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        CustomerContact contact = new CustomerContact();
+        CustomerContactEntity contact = new CustomerContactEntity();
         contact.setId(dto.id());
         contact.setChannel(dto.channel());
         contact.setContactValue(dto.contactValue());
@@ -143,7 +143,7 @@ public interface CustomerMapper {
         return contact;
     }
 
-    private static FinancialsDTO toDTO(CustomerFinancials financials) {
+    private static FinancialsDTO toDTO(CustomerFinancialsEntity financials) {
         if (financials == null) {
             return null;
         }
@@ -162,12 +162,12 @@ public interface CustomerMapper {
         );
     }
 
-    private static CustomerFinancials toEntity(FinancialsDTO dto) {
+    private static CustomerFinancialsEntity toEntity(FinancialsDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        CustomerFinancials financials = new CustomerFinancials();
+        CustomerFinancialsEntity financials = new CustomerFinancialsEntity();
         financials.setId(dto.id());
         financials.setCreditLimit(dto.creditLimit());
         financials.setCurrency(dto.currency());
